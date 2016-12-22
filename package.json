@@ -1,0 +1,15 @@
+{
+  "name": "node-chat-app",
+  "version": "1.0.0",
+  "description": "Chat Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git remote add origin https://github.com/camilo17/Chat-App.git"
+  },
+  "author": "Camilo Guerrero",
+  "license": "ISC"
+}
