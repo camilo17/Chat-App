@@ -11,5 +11,8 @@
     "url": "git remote add origin https://github.com/camilo17/Chat-App.git"
   },
   "author": "Camilo Guerrero",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
