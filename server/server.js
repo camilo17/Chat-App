@@ -18,6 +18,18 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
    console.log('New user connnected');
 
+   socket.emit('newMessage', {
+       from: 'Admin',
+       text: 'Wecome to the chat app',
+       createdAt: new Date().getTime()
+   });
+
+   socket.broadcast.emit('newMessage', {
+       from: 'Admin',
+       text: 'New user joined',
+       createdAt: new Date().getTime()
+   })
+
    // socket.emit('newEmail', {
    //     from: 'johnny@example.com',
    //     text: 'Hey, oh shoot squaddup',
@@ -37,8 +49,16 @@ io.on('connection', (socket) => {
             from: message.from,
             text: message.text,
             createdAt: new Date().getTime()
-        })
+        });
+   //          socket.broadcast.emit('newMessage', { -----this will send the message to everyone except this person
+   //              from: message.from,
+   //              text: message.text,
+   //              createdAt: new Date().getTime()
+   //          })
     })
+    })
+
+
 
     socket.on('disconnect', () => {
         console.log('User was disconnected');
