@@ -17,47 +17,27 @@ const port = process.env.PORT || 3000;
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-   console.log('New user connnected');
+    console.log('New user connected');
 
-   socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
 
-   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
+    socket.on('createMessage', (message, callback) => {
+        console.log('createMessage', message);
+        io.emit('newMessage', generateMessage(message.from, message.text));
+        callback('This is from the server.');
+    });
 
-    socket.emit('newMessage', {
-        from: 'JohnCena@example.com',
-        text: 'You can not see me',
-        createdAt: 1234
-    })
-
-    socket.on('createMessage', (message) => {
-        console.log('messsage', message);
-        io.emit('newMessage', generateMessage(message.from, message.text)); //this will send to everyone!!
-        callback();
-        //
-        //
-        //
-        // socket.broadcast.emit('newMessage', { -----this will send the message to everyone except this person
-   //              from: message.from,
-   //              text: message.text,
-   //              createdAt: new Date().getTime()
-   //          })
-    })
-    })
-
-
+    socket.on('createLocationMessage', (coords) => {
+        io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}`));
+    });
 
     socket.on('disconnect', () => {
         console.log('User was disconnected');
-    })
-
+    });
 });
-
-
-
 
 server.listen(port, () => {
-    console.log(`Server is running up on port ${port}`);
+    console.log(`Server is up on ${port}`);
 });
-
-
