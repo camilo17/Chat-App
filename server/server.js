@@ -23,23 +23,17 @@ io.on('connection', (socket) => {
 
    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
-   // socket.emit('newEmail', {
-   //     from: 'johnny@example.com',
-   //     text: 'Hey, oh shoot squaddup',
-   //     createdAt: 123
-   // });
+
     socket.emit('newMessage', {
         from: 'JohnCena@example.com',
         text: 'You can not see me',
         createdAt: 1234
     })
-   // socket.on('createEmail', (newEmail) => {
-   //     console.log('createEmail', newEmail);
-   // });
+
     socket.on('createMessage', (message) => {
         console.log('messsage', message);
         io.emit('newMessage', generateMessage(message.from, message.text)); //this will send to everyone!!
-   //
+        callback();
         //
         //
         //
@@ -65,4 +59,5 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
     console.log(`Server is running up on port ${port}`);
 });
+
 
